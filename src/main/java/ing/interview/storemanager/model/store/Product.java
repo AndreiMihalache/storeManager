@@ -1,4 +1,4 @@
-package ing.interview.storemanager.model;
+package ing.interview.storemanager.model.store;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,7 +13,7 @@ public class Product {
     @Column(nullable = false)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
     @Column

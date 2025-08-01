@@ -1,6 +1,6 @@
 package ing.interview.storemanager.dto.product;
 
-import ing.interview.storemanager.model.Product;
+import ing.interview.storemanager.model.store.Product;
 import org.springframework.stereotype.Component;
 
 @Component

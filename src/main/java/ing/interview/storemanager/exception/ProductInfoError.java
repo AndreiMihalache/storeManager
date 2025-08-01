@@ -1,4 +1,4 @@
-package ing.interview.storemanager.exceptions;
+package ing.interview.storemanager.exception;
 
 public class ProductInfoError extends RuntimeException {
     public ProductInfoError(String message) {

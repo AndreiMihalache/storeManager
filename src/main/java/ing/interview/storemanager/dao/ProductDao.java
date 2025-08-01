@@ -1,6 +1,6 @@
 package ing.interview.storemanager.dao;
 
-import ing.interview.storemanager.model.Product;
+import ing.interview.storemanager.model.store.Product;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import lombok.extern.log4j.Log4j2;
@@ -39,7 +39,6 @@ public class ProductDao extends Dao<Product> {
         query.setParameter("id", id);
         query.executeUpdate();
     }
-
 
     public List<Product> findAll() {
         final String queryString = "select p from Product p";
