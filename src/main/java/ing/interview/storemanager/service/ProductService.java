@@ -3,6 +3,7 @@ package ing.interview.storemanager.service;
 import ing.interview.storemanager.dto.product.ProductDto;
 import ing.interview.storemanager.dto.product.ProductDtoMapper;
 import ing.interview.storemanager.exception.ProductInfoError;
+import ing.interview.storemanager.kafka.aop.PublishEvent;
 import ing.interview.storemanager.model.store.Product;
 import ing.interview.storemanager.repository.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -27,11 +28,13 @@ public class ProductService {
         return product.map(value -> productDtoMapper.toDto(value)).orElse(null);
     }
 
+    @PublishEvent(type = "DELETE_PRODUCT")
     @Transactional
     public void deleteProduct(Long productId) {
         productRepository.deleteById(productId);
     }
 
+    @PublishEvent(type = "ADD_PRODUCT")
     @Transactional
     public ProductDto addProduct(ProductDto productDto) {
         Product product = productDtoMapper.toEntity(productDto);
@@ -40,8 +43,7 @@ public class ProductService {
         return productDtoMapper.toDto(product);
     }
 
-
-
+    @PublishEvent(type = "CHANGED_PRICE")
     @Transactional
     public ProductDto changePrice(Long productId, Double price) {
         if(price.compareTo(BigDecimal.ZERO.doubleValue()) < 0){
@@ -57,6 +59,8 @@ public class ProductService {
         else throw new ProductInfoError("Product not found");
     }
 
+
+    @PublishEvent(type = "CHANGED_STOCK")
     @Transactional
     public ProductDto updateStock(Long productId, Integer quantity) {
 
@@ -75,6 +79,8 @@ public class ProductService {
 
     }
 
+
+    @PublishEvent(type = "ADDED_STOCK")
     @Transactional
     public ProductDto addStock(Long productId, Integer quantity) {
         if(quantity < 0){
@@ -90,6 +96,8 @@ public class ProductService {
         else throw new ProductInfoError("Product not found");
     }
 
+
+    @PublishEvent(type = "CHANGED_DESCRIPTION")
     @Transactional
     public ProductDto updateDescription(Long productId, String description) {
         if(description == null || description.isEmpty()){

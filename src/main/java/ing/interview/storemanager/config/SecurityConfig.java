@@ -25,6 +25,7 @@ public class SecurityConfig {
         http
                 .userDetailsService(storeUserDetailService)
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, PRODUCTS_ENDPOINT).permitAll()
                         .requestMatchers(HttpMethod.POST, PRODUCTS_ENDPOINT).hasAuthority(ADMIN)
                         .requestMatchers(HttpMethod.PUT, PRODUCTS_ENDPOINT).hasAuthority(ADMIN)
